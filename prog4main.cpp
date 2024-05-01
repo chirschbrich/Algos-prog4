@@ -3,6 +3,8 @@
 #include <algorithm>
 #include "prog4.h"
 
+#include <fstream>
+
 using namespace std;
 
 // This is used for sorting list of applicants 
@@ -27,25 +29,43 @@ ostream& operator<<(ostream& os, Applicant& a)
 
 pair<int, vector<Applicant> >pickTeam(int budget, vector< vector<Applicant> >& alist);
 
-main()
+int main()
 {
     float budget;
     int p, k;
     vector< vector<Applicant> > alist;
     
     //  read data from input
-    cin >> budget >> p >> k;
-    for (int i = 0; i < p; i++)
-	{
-	   vector<Applicant> curlist;
-           for (int j = 0; j < k; j++)
-		{
-		    Applicant app;	
-		    cin >> app;
-		    curlist.push_back(app);
-		}
-          alist.push_back(curlist);
-	}
+    // cin >> budget >> p >> k;
+    // for (int i = 0; i < p; i++)
+	// {
+	//    vector<Applicant> curlist;
+    //        for (int j = 0; j < k; j++)
+	// 	{
+	// 	    Applicant app;	
+	// 	    cin >> app;
+	// 	    curlist.push_back(app);
+	// 	}
+    //       alist.push_back(curlist);
+	// }
+
+
+    ifstream inputFile("../prog4input.txt");
+    if (!inputFile) {
+        cerr << "Error opening input file." << endl;
+        return 1;
+    }
+
+    inputFile >> budget >> p >> k;
+    for (int i = 0; i < p; i++) {
+        vector<Applicant> curlist;
+        for (int j = 0; j < k; j++) {
+            Applicant app;
+            inputFile >> app.id >> app.cost >> app.benefit;
+            curlist.push_back(app);
+        }
+        alist.push_back(curlist);
+    }
 
     // display list of applicants
 
@@ -69,5 +89,5 @@ main()
 	cout << res.second[i] << " ";
     cout <<endl;
 
-    return(0);
+    return 0;
 }
