@@ -7,10 +7,10 @@
 istream& operator>>(istream& is, Applicant& a);
 ostream& operator<<(ostream& os, Applicant& a);
 
-pair<float, vector<Applicant>> pickTeam(int budget, vector<vector<Applicant>>& alist) {
+pair<int, vector<Applicant>> pickTeam(int budget, vector<vector<Applicant>>& alist) {
     int P = alist.size();
-    vector<vector<float>> dp(P+1, vector<float>(budget+1, 0));
-    vector<vector<int>> chosen(P+1, vector<int>(budget+1, -1));
+    vector<vector<float>> dp(P + 1, vector<float>(budget + 1, 0));
+    vector<vector<int>> chosen(P + 1, vector<int>(budget + 1, -1));
 
     for (int i = 1; i <= P; i++) {
         for (int j = 0; j <= budget; j++) {
@@ -31,6 +31,7 @@ pair<float, vector<Applicant>> pickTeam(int budget, vector<vector<Applicant>>& a
             j -= alist[i - 1][chosen[i][j]].cost;
         }
     }
+
     return make_pair(dp[P][budget], team);
 }
 
