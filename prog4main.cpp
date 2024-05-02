@@ -28,10 +28,11 @@ ostream& operator<<(ostream& os, Applicant& a)
 
 
 pair<int, vector<Applicant> >pickTeam(int budget, vector< vector<Applicant> >& alist);
+pair<int, vector<Applicant> >pickTeam_2(int budget, vector< vector<Applicant> >& alist);
 
 int main()
 {
-    float budget;
+    int budget;
     int p, k;
     vector< vector<Applicant> > alist;
     
@@ -87,6 +88,19 @@ int main()
     cout << res.first << " | ";
     for (int i = 0; i < res.second.size(); i++)
 	cout << res.second[i] << " ";
+    cout <<endl;
+
+    // finding the optimal team
+    pair<int, vector<Applicant> > res2 = pickTeam_2(budget,  alist);
+
+    // sort the list of selected applicants by id
+    sort(res2.second.begin(), res2.second.end(), compare1);
+
+    // output the results
+    cout << "=========\n";
+    cout << res2.first << " | ";
+    for (int i = 0; i < res2.second.size(); i++)
+	cout << res2.second[i] << " ";
     cout <<endl;
 
     return 0;
